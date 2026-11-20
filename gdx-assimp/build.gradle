@@ -1,0 +1,53 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+java {
+    withSourcesJar()
+}
+
+compileJava {
+    options.release = 8
+}
+
+// Natives classifier for the platform running the unit tests.
+def osName = System.getProperty('os.name').toLowerCase()
+def osArch = System.getProperty('os.arch').toLowerCase()
+def lwjglNatives
+if (osName.contains('mac')) {
+    lwjglNatives = osArch.contains('aarch64') ? 'natives-macos-arm64' : 'natives-macos'
+} else if (osName.contains('win')) {
+    lwjglNatives = osArch.contains('aarch64') ? 'natives-windows-arm64' : 'natives-windows'
+} else {
+    lwjglNatives = osArch.contains('aarch64') ? 'natives-linux-arm64' : 'natives-linux'
+}
+
+dependencies {
+    api "com.badlogicgames.gdx:gdx:$gdxVersion"
+    api "org.lwjgl:lwjgl:$lwjglVersion"
+    api "org.lwjgl:lwjgl-assimp:$lwjglVersion"
+
+    testImplementation "junit:junit:$junitVersion"
+    testRuntimeOnly "org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives"
+    testRuntimeOnly "org.lwjgl:lwjgl-assimp:$lwjglVersion:$lwjglNatives"
+    // gdx native libs (gdx2d etc.) so Pixmap decoding can be tested headlessly
+    testRuntimeOnly "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}
+
+test {
+    useJUnit()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat 'full'
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'gdx-assimp'
+        }
+    }
+}

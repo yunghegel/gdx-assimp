@@ -1,0 +1,149 @@
+{
+ "asset": {
+  "version": "2.0"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0,
+   "rotation": [
+    0,
+    0,
+    0,
+    1
+   ],
+   "name": "spinner"
+  }
+ ],
+ "meshes": [
+  {
+   "name": "triangle",
+   "primitives": [
+    {
+     "attributes": {
+      "POSITION": 1
+     },
+     "indices": 0
+    }
+   ]
+  }
+ ],
+ "animations": [
+  {
+   "name": "spin",
+   "samplers": [
+    {
+     "input": 2,
+     "interpolation": "LINEAR",
+     "output": 3
+    }
+   ],
+   "channels": [
+    {
+     "sampler": 0,
+     "target": {
+      "node": 0,
+      "path": "rotation"
+     }
+    }
+   ]
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "data:application/octet-stream;base64,AAABAAIAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPgAAAD8AAEA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAPMENT/zBDU/AAAAAAAAAAAAAIA/MjGNJAAAAAAAAAAA8wQ1P/MENb8AAAAAAAAAADIxDSUAAIC/",
+   "byteLength": 144
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 6,
+   "target": 34963
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 8,
+   "byteLength": 36,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 44,
+   "byteLength": 20
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 64,
+   "byteLength": 80
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5123,
+   "count": 3,
+   "type": "SCALAR",
+   "max": [
+    2
+   ],
+   "min": [
+    0
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 3,
+   "type": "VEC3",
+   "max": [
+    1,
+    1,
+    0
+   ],
+   "min": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 5,
+   "type": "SCALAR",
+   "max": [
+    1.0
+   ],
+   "min": [
+    0.0
+   ]
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5126,
+   "count": 5,
+   "type": "VEC4",
+   "max": [
+    1,
+    1,
+    1,
+    1
+   ],
+   "min": [
+    -1,
+    -1,
+    -1,
+    -1
+   ]
+  }
+ ]
+}

@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+compileJava {
+    options.release = 8
+}
+
+def osName = System.getProperty('os.name').toLowerCase()
+def osArch = System.getProperty('os.arch').toLowerCase()
+def lwjglNatives
+if (osName.contains('mac')) {
+    lwjglNatives = osArch.contains('aarch64') ? 'natives-macos-arm64' : 'natives-macos'
+} else if (osName.contains('win')) {
+    lwjglNatives = osArch.contains('aarch64') ? 'natives-windows-arm64' : 'natives-windows'
+} else {
+    lwjglNatives = osArch.contains('aarch64') ? 'natives-linux-arm64' : 'natives-linux'
+}
+
+dependencies {
+    implementation project(':gdx-assimp')
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    implementation "org.lwjgl:lwjgl-assimp:$lwjglVersion:$lwjglNatives"
+}
+
+application {
+    mainClass = 'com.crownjames.gdxassimp.demo.AssimpViewer'
+    if (osName.contains('mac')) {
+        applicationDefaultJvmArgs += '-XstartOnFirstThread'
+    }
+
+}
+
+// Model path as a Gradle property, so the viewer can be launched with
+//   ./gradlew :demo:run -Pmodel=gdx-assimp/src/test/resources/models/cube.obj
+// '-PmodelPath=' is accepted as an alias.
+//
+// Read with providers.gradleProperty() rather than findProperty(): the latter
+// also resolves members of Project, and both 'model' (the internal project
+// state) and 'path' (':demo') already exist there, so it would never report
+// them as absent. gradleProperty() sees only -P and gradle.properties.
+//
+// Passing --args="<path>" still works, and is left untouched when no property is set.
+run {
+    def modelProperty = providers.gradleProperty('model').orNull
+        ?: providers.gradleProperty('modelPath').orNull
+    if (modelProperty != null) {
+        // The viewer resolves through an AbsoluteFileHandleResolver, so the path
+        // has to be absolute; a relative value is taken from the repository root.
+        args = [rootProject.file(modelProperty).absolutePath]
+    }
+}

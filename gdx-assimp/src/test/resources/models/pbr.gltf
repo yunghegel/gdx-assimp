@@ -1,0 +1,215 @@
+{
+ "asset": {
+  "version": "2.0"
+ },
+ "extensionsUsed": [
+  "KHR_materials_ior",
+  "KHR_materials_clearcoat",
+  "KHR_materials_transmission",
+  "KHR_materials_sheen",
+  "KHR_materials_emissive_strength",
+  "KHR_materials_volume",
+  "KHR_texture_transform"
+ ],
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0,
+   "name": "pbr_node"
+  }
+ ],
+ "meshes": [
+  {
+   "name": "pbr_mesh",
+   "primitives": [
+    {
+     "attributes": {
+      "POSITION": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 0,
+     "material": 0
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "FullPBR",
+   "pbrMetallicRoughness": {
+    "baseColorFactor": [
+     0.9,
+     0.5,
+     0.25,
+     0.8
+    ],
+    "baseColorTexture": {
+     "index": 0,
+     "extensions": {
+      "KHR_texture_transform": {
+       "offset": [
+        0.1,
+        0.2
+       ],
+       "scale": [
+        2.0,
+        3.0
+       ],
+       "rotation": 0.5
+      }
+     }
+    },
+    "metallicFactor": 0.7,
+    "roughnessFactor": 0.3,
+    "metallicRoughnessTexture": {
+     "index": 0
+    }
+   },
+   "normalTexture": {
+    "index": 0,
+    "scale": 0.8
+   },
+   "occlusionTexture": {
+    "index": 0,
+    "strength": 0.9
+   },
+   "emissiveTexture": {
+    "index": 0
+   },
+   "emissiveFactor": [
+    0.1,
+    0.2,
+    0.3
+   ],
+   "alphaMode": "MASK",
+   "alphaCutoff": 0.4,
+   "doubleSided": true,
+   "extensions": {
+    "KHR_materials_ior": {
+     "ior": 1.4
+    },
+    "KHR_materials_clearcoat": {
+     "clearcoatFactor": 0.8,
+     "clearcoatRoughnessFactor": 0.2
+    },
+    "KHR_materials_transmission": {
+     "transmissionFactor": 0.6
+    },
+    "KHR_materials_sheen": {
+     "sheenColorFactor": [
+      0.2,
+      0.3,
+      0.4
+     ],
+     "sheenRoughnessFactor": 0.5
+    },
+    "KHR_materials_emissive_strength": {
+     "emissiveStrength": 3.0
+    },
+    "KHR_materials_volume": {
+     "thicknessFactor": 0.7,
+     "attenuationDistance": 2.5,
+     "attenuationColor": [
+      0.6,
+      0.7,
+      0.8
+     ]
+    }
+   }
+  }
+ ],
+ "textures": [
+  {
+   "source": 0,
+   "sampler": 0
+  }
+ ],
+ "samplers": [
+  {
+   "wrapS": 33071,
+   "wrapT": 33648
+  }
+ ],
+ "images": [
+  {
+   "uri": "pbr.png"
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "data:application/octet-stream;base64,AAABAAIAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8=",
+   "byteLength": 68
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 6,
+   "target": 34963
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 8,
+   "byteLength": 36,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 44,
+   "byteLength": 24,
+   "target": 34962
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5123,
+   "count": 3,
+   "type": "SCALAR",
+   "max": [
+    2
+   ],
+   "min": [
+    0
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 3,
+   "type": "VEC3",
+   "max": [
+    1,
+    1,
+    0
+   ],
+   "min": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 3,
+   "type": "VEC2",
+   "max": [
+    1,
+    1
+   ],
+   "min": [
+    0,
+    0
+   ]
+  }
+ ]
+}
