@@ -1,9 +1,120 @@
+plugins {
+    id 'com.gradleup.nmcp.aggregation' version '1.6.1'
+}
+
 allprojects {
-    group = 'com.crownjames.gdxassimp'
-    version = '0.1.0'
+    group = 'dev.yunghegel.gdx'
+    version = rootProject.version
 
     repositories {
         mavenCentral()
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+}
+
+nmcpAggregation {
+    centralPortal {
+        username = providers.gradleProperty('centralPortalUsername')
+        password = providers.gradleProperty('centralPortalPassword')
+        // USER_MANAGED: the deployment is validated and held in the portal for
+        // review instead of going straight to Central. Releases to Central are
+        // permanent, so inspect the first one at central.sonatype.com and click
+        // Publish by hand. Switch back to 'AUTOMATIC' once you trust the setup.
+        publishingType = 'USER_MANAGED'
+    }
+}
+
+dependencies {
+    nmcpAggregation project(':gdx-assimp')
+}
+
+configure([project(':gdx-assimp')]) {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+    apply plugin: 'com.gradleup.nmcp'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+        withSourcesJar()
+        withJavadocJar()
+    }
+
+    compileJava {
+        options.release = 8
+        options.encoding = 'UTF-8'
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+            resources {
+                srcDirs = ['src/main/resources']
+            }
+        }
+        test {
+            java {
+                srcDirs = ['src/test/java']
+            }
+        }
+    }
+
+    javadoc {
+        options.encoding = 'UTF-8'
+        options.addStringOption('Xdoclint:none', '-quiet')
+        failOnError = false
+    }
+
+    // shared srcDirs mean the same file can reach a Jar task more than once
+    tasks.withType(Jar).configureEach {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                pom {
+                    name = project.name
+                    description = project.description ?: 'Universal Assimp-backed model importer for libgdx: FBX, glTF/GLB, Collada, OBJ and 40+ formats, with full PBR material destructuring.'
+                    url = 'https://github.com/yunghegel/gdx-assimp'
+                    licenses {
+                        license {
+                            name = 'zlib License'
+                            url = 'https://opensource.org/licenses/Zlib'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'yunghegel'
+                            name = 'Jamie Crown'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:https://github.com/yunghegel/gdx-assimp.git'
+                        developerConnection = 'scm:git:ssh://git@github.com/yunghegel/gdx-assimp.git'
+                        url = 'https://github.com/yunghegel/gdx-assimp'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = 'LocalBuild'
+                url = rootProject.layout.buildDirectory.dir('repo')
+            }
+        }
+    }
+
+    signing {
+        def signingKey = findProperty('signingInMemoryKey')
+        def signingPassword = findProperty('signingInMemoryKeyPassword')
+        if (signingKey != null) {
+            useInMemoryPgpKeys(signingKey.toString(), signingPassword?.toString() ?: '')
+            sign publishing.publications.mavenJava
+        }
     }
 }

@@ -26,7 +26,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.crownjames.gdxassimp.demo.AssimpViewer'
+    mainClass = 'dev.yunghegel.gdx.assimp.demo.AssimpViewer'
     if (osName.contains('mac')) {
         applicationDefaultJvmArgs += '-XstartOnFirstThread'
     }

@@ -28,3 +28,7 @@ local.properties
 # Environment
 .env
 .env.*
+
+# Signing (PUBLISHING.md has you export the private key here)
+private-key.asc
+*.gpg

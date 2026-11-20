@@ -41,7 +41,7 @@ implementation can build an intricate renderer covering full PBR and beyond on t
 - **Alpha modes** — glTF `MASK` becomes `FloatAttribute.AlphaTest` with the declared cutoff; `BLEND` becomes a
   `BlendingAttribute` (base color alpha × opacity).
 - **`AssimpMaterialAttribute`** — attached to every material, carrying the complete raw
-  [`AssimpMaterialInfo`](gdx-assimp/src/main/java/com/crownjames/gdxassimp/AssimpMaterialInfo.java): every
+  [`AssimpMaterialInfo`](gdx-assimp/src/main/java/dev/yunghegel/gdx/assimp/AssimpMaterialInfo.java): every
   `aiMaterialProperty` (typed access by key, see `AssimpMatKeys`) and every texture reference across all stacks,
   including extra layers and per-texture scalars (normal scale, occlusion strength, blend op, …). Anything Assimp
   can read, a renderer can query — even properties gdx-assimp has no dedicated attribute for:
@@ -112,7 +112,7 @@ LibGDX file type — including assets packed inside jars.
 
 ## Project layout
 
-- `gdx-assimp/` — the library (`com.crownjames.gdxassimp`), plus unit tests
+- `gdx-assimp/` — the library (`dev.yunghegel.gdx.assimp`), plus unit tests
 - `demo/` — a minimal viewer: `./gradlew :demo:run --args="/absolute/path/to/model.fbx"`
   (orbit camera, plays the first animation)
 

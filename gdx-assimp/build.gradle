@@ -1,15 +1,4 @@
-plugins {
-    id 'java-library'
-    id 'maven-publish'
-}
-
-java {
-    withSourcesJar()
-}
-
-compileJava {
-    options.release = 8
-}
+description = 'Universal Assimp-backed model importer for libgdx: FBX, glTF/GLB, Collada, OBJ and 40+ formats, with full PBR material destructuring.'
 
 // Natives classifier for the platform running the unit tests.
 def osName = System.getProperty('os.name').toLowerCase()
@@ -40,14 +29,5 @@ test {
     testLogging {
         events 'passed', 'skipped', 'failed'
         exceptionFormat 'full'
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifactId = 'gdx-assimp'
-        }
     }
 }
